@@ -9,14 +9,13 @@ const PORT = 8000;
 const { MONGODB_URI } = process.env;
 const loginRouter = require("./router/loginRouter");
 const cityRouter = require("./router/cityRouter");
-const authRouter = require("./router/authRouter");
-const productsRouter = require("./router/productsRouter");
-const indexRouter = require("./router/indexRouter");
 const profileRouter = require("./router/profileRouter");
+const signupRouter = require("./router/signupRouter");
 //app functions
 app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
+app.use(express.json());
 //mongoose
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true })
@@ -25,10 +24,8 @@ mongoose
 //router
 app.use("/login", loginRouter);
 app.use("/city", cityRouter);
-app.use("/auth", authRouter);
-app.use("/products", productsRouter);
-app.use("/index", indexRouter);
 app.use("/profile", profileRouter);
+app.use("/signup", signupRouter);
 //path
 app.get("/", (_req, res) => {
   res.render("homepage");
