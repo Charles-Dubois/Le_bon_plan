@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-router.get("/auth", (_req, res) => {
+router.get("/", (_req, res) => {
   res.render("auth");
 });
 
