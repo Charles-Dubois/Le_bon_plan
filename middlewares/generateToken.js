@@ -29,15 +29,25 @@ async function loginToken(req, res, next) {
   const errorMessage = "Name or password not valid";
   let result;
   try {
-    req.body.password = await bcrypt.hash(req.body.password, 12);
     result = await Login.find({ name: req.body.name });
 
     if (result.length === 0) {
-      return res.json({ message: `The name ${req.body.name} is not valid` });
+      return res.json(errorMessage);
     }
+  } catch (error) {
+    console.log(`Error from /middlewares/generateToken.js in loginToken`);
+    console.error(error);
+    console.log(`Error from /middlewares/generateToken.js in loginToken`);
+    return res
+      .status(400)
+      .json({ message: `The name ${req.body.name} is not valid` });
+  }
+
+  try {
+    req.body.password = await bcrypt.hash(req.body.password, 12);
     const ckeckPassword = await bcrypt.compare(
-      { password: req.body.password },
-      result.password
+      req.body.password,
+      result[0].password
     );
     if (!ckeckPassword) {
       return res.json(errorMessage);
@@ -46,7 +56,7 @@ async function loginToken(req, res, next) {
     console.log(`Error from /middlewares/generateToken.js in loginToken`);
     console.error(error);
     console.log(`Error from /middlewares/generateToken.js in loginToken`);
-    return res.status(400).json({ message: "Name is not valid" });
+    return res.status(400).json({ message: `problem with password` });
   }
   const token = jwt.sign(
     {
