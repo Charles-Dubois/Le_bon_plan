@@ -2,6 +2,7 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const { engine } = require("express-handlebars");
 const app = express();
 //Variables
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.use(express.json());
+app.use(cookieParser());
 //mongoose
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true })

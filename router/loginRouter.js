@@ -8,15 +8,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", login, async (req, res, next) => {
-  try {
-    req.body.password = await bcrypt.hash(req.body.password, 12);
-    await Login.find(req.body);
-  } catch (error) {
-    console.log(`Error from loginRouter.js ${error}`);
-    res.status(400).json({ message: "error 400" });
-  }
-
-  res.redirect("/profile");
+  console.log(req.cookies);
   next();
 });
 module.exports = router;

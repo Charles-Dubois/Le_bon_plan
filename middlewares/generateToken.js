@@ -2,11 +2,13 @@ const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
 const Login = require("../models/loginModel");
 const bcrypt = require("bcrypt");
-async function generateToken(req, res, next) {
-  let result, name;
+
+async function signupToken(req, res, next) {
+  let result, name, ID;
   try {
     req.body.password = await bcrypt.hash(req.body.password, 12);
     result = await Login.create(req.body);
+    ID = result.id;
     name = req.body.name;
   } catch (error) {
     console.log(`Error from /middlewares/generateToken.js`);
@@ -22,9 +24,11 @@ async function generateToken(req, res, next) {
     },
     SECRET
   );
-  res.cookie(token);
+
+  res.cookie("leBonPlan", token, { httpOnly: true, secure: false });
 
   next();
 }
 
+const generateToken = { signupToken };
 module.exports = generateToken;
