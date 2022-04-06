@@ -12,6 +12,7 @@ const loginRouter = require("./router/loginRouter");
 const cityRouter = require("./router/cityRouter");
 const profileRouter = require("./router/profileRouter");
 const signupRouter = require("./router/signupRouter");
+const adminRouter = require("./router/adminRouter");
 //app functions
 app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine());
@@ -28,6 +29,7 @@ app.use("/login", loginRouter);
 app.use("/city", cityRouter);
 app.use("/profile", profileRouter);
 app.use("/signup", signupRouter);
+app.use("/admin", adminRouter);
 //path
 app.get("/", (_req, res) => {
   res.render("homepage");

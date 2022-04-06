@@ -1,0 +1,16 @@
+<h3>admin</h3>
+<form action="/admin" method="POST">
+  <label for="product">product</label>
+  <input type="text" name="product" id="product" />
+  <label for="description">description</label>
+  <input type="text" name="description" id="description" />
+  <label for="price">price (in cents)</label>
+  <input type="text" name="price" id="price" />
+  <input
+    type="file"
+    id="picture"
+    name="picture"
+    accept="image/png, image/jpeg"
+  />
+  <input type="submit" value="send" />
+</form>
