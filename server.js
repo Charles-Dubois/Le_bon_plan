@@ -19,7 +19,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(express.static("public"));
 //mongoose
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true })

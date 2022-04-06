@@ -7,18 +7,19 @@ const router = express.Router();
 const Login = require("../models/loginModel");
 const checkToken = require("../middlewares/checkToken");
 const { admin } = require("../middlewares/coditionJoi");
+router.use(express.static("public"));
 
 router.get("/", (req, res) => {
   res.render("admin");
 });
-
-router.post("/", checkToken, admin, async (req, res) => {
+//admin,
+router.post("/admin", upload.single("image"), (req, res) => {
   fs.renameSync(
     req.file.path,
     path.join(req.file.destination, req.file.originalname)
   );
 
-  res.send("recu");
+  res.json("hello");
 });
 
 module.exports = router;
