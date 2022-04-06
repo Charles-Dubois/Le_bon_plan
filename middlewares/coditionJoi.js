@@ -12,6 +12,7 @@ function login(req, res, next) {
 }
 
 function admin(req, res, next) {
+  parseInt(req.body.price);
   const validation = adminJoi.validate(req.body);
   if (validation.error) {
     return res.status(400).json({
