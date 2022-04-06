@@ -12,8 +12,13 @@ router.use(express.static("public"));
 router.get("/", (req, res) => {
   res.render("admin");
 });
+
+// @desc 	Upload an image
+// @route 	POST /admin
+// @access 	Public
+
 //admin,
-router.post("/admin", upload.single("image"), (req, res) => {
+router.post("/", upload.single("image"), (req, res) => {
   fs.renameSync(
     req.file.path,
     path.join(req.file.destination, req.file.originalname)
